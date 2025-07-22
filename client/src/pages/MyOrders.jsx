@@ -14,7 +14,7 @@ const MyOrders = () => {
   return (
     <div className='mt-16 pb-16'>
     <div className='flex flex-col items-end w-max mb-8'>
-      <p className='text-2xl font-medium uppercase'>My Oders</p>
+      <p className='text-2xl font-medium uppercase'>My Orders</p>
       <div className='w-16 h-0.5 bg-primary rounded-full'></div>
     </div>
     {myOrders.map((order,index)=>(
@@ -25,7 +25,10 @@ const MyOrders = () => {
           <span>Total Amount : {currency}{order.amount}</span>
         </p>
         {order.items.map((item,index)=>(
-          <div>
+          <div key={index} className={`relative bg-white text-gray-500/70 
+  ${order.items.length !== index + 1 && "border-b" } 
+  border-gray-300 flex flex-col md:flex-row md:items-center 
+  justify-between p-4 py-5 md:gap-16 w-full max-w-4xl`}>
             <div className='flex items-center mb-4 md:mb-0'>
               <div className='bg-primary/10 p-4 rounded-lg'>
                 <img src={item.product.image[0]} alt=""  className='w-16 h-16'/>
@@ -36,13 +39,13 @@ const MyOrders = () => {
               </div>
             </div>
    
-           <div className='text-primary text-lg font-medium'>
+           <div className='flex flex-col justify-center md:ml-8 mb-4 md:mb-0 '>
             <p>Quantity: {item.quantity||"1"}</p>
             <p>Status: {order.status}</p>
-            <p>Date: {new Date(order.create.createAt).toLocaleDateString()}</p>
+            <p>Date: {new Date(order.createdAt).toLocaleDateString()}</p>
            </div>
           <p className='text-primary text-lg font-medium'>
-           Amount: {currency}{item.product.offerPrice*item.quantity}
+           Amount: {currency }{item.product.offerPrice*item.quantity}
           </p>
            
          
