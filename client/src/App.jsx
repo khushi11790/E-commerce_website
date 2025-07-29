@@ -25,8 +25,9 @@ const App = () => {
 
   return (
     <div className='text-default min-h-screen text-gray-700 bg-white'>
-      {!isSellerPath && <Navbar />}
-      {showUserLogin && <Login />}
+      {isSellerPath ? null : <Navbar />}
+      {showUserLogin ? <Login /> : null}
+
       <Toaster />
 
       <div className={`${isSellerPath ? '' : 'px-6 md:px-16 lg:px-24 xl:px-32'}`}>
@@ -40,7 +41,7 @@ const App = () => {
           <Route path='/my-orders' element={<MyOrders />} />
           <Route path="/seller-login" element={<SellerLogin />} />
           <Route path="/seller" element={isSeller ? <SellerLayout /> : <SellerLogin />}>
-  <Route index element={isSeller?<AddProduct/>:null} /> 
+  <Route index element={<AddProduct/>} /> 
   <Route path="product-list" element={<ProductList />} />
   <Route path="orders" element={<Orders />} />
 </Route>
