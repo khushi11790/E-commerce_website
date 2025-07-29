@@ -9,6 +9,7 @@ const SellerLogin = () => {
     const onSubmitHandler = async (event)=>{
         event.preventDefault();
         setIsSeller(true)
+       
     }
 
     useEffect(()=>{
