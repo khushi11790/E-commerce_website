@@ -9,6 +9,8 @@ import connectCloudinary from './configs/cloudinary.js';
 import productRouter from './routes/productRoute.js';
 import cartRouter from './routes/cartRoute.js';
 import addressRouter from './routes/addressRoute.js';
+import orderRouter from './routes/orderRoute.js';
+import { stripeWebhooks } from './controllers/orderController.js';
 
 
 const app=express();
@@ -17,12 +19,23 @@ const port = process.env.PORT||4000;
 await connectDB()
 await connectCloudinary()
 //Allow multiple origins
-const allowOrigins=['http://localhost:5173/']
+const allowOrigins=['http://localhost:5173']
+
+app.post('/stripe',express.raw({type:'application/json'}),stripeWebhooks)
 
 //Middleware configuration
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({origin: allowOrigins,credentials:true}))
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowOrigins.includes(origin.replace(/\/$/, ''))) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true
+}));
 
 
 
@@ -33,6 +46,11 @@ app.use('/api/seller',sellerRouter)
 app.use('/api/product',productRouter)
 app.use('/api/cart',cartRouter)
 app.use('/api/address',addressRouter)
+app.use('/api/order',orderRouter)
+
+console.log("JWT_SECRET:", process.env.JWT_SECRET);
+console.log("SELLER_EMAIL:", process.env.SELLER_EMAIL);
+console.log("MONGODB_URI:", process.env.MONGODB_URI ? "Loaded" : "Missing");
 
 
 
