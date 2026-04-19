@@ -51,7 +51,17 @@ http://localhost:5173
 
 Create a `.env` file in both **client** and **server** folders and add required keys like:
 
-MONGODB_URI=your_database_url
-JWT_SECRET=your_secret_key
-STRIPE_SECRET_KEY=your_key
+JWT_SECRET=your_key
+NODE_ENV=your_key
 
+SELLER_EMAIL=your_email
+SELLER_PASSWORD=your_password
+
+MONGODB_URI=your_key
+
+CLOUDINARY_CLOUD_NAME=your_key
+CLOUDINARY_API_KEY=your_key
+CLOUDINARY_API_SECRET=your_key
+
+STRIPE_PUBLISHABLE_KEY=your_key
+STRIPE_SECRET_KEY=your_key
